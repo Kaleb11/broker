@@ -41,6 +41,5 @@ module.exports = (sequelize, DataTypes) => {
     address.associate = function(models) {
 
     }
-
     return address;
 };
