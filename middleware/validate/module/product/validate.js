@@ -1,123 +1,54 @@
-const {
-    role,
-    Sequelize
-} = require("../../models");
-const Op = Sequelize.Op;
-const paginate = require("../../utils/pagination");
-const dotenv = require('dotenv');
-dotenv.config();
-let self = {};
+const validateReply = require('../../../../utils/validateerror');
 
-self.getAll = async(req, res) => {
-    const { page = process.env.page, size = process.env.size, order = process.env.order } = req.query;
+const brandValidate = async(req, res, next) => {
+    const validationRule = {
+        "country": "required|string",
+        "city": "required|string"
+    };
 
-    const { limit, offset } = paginate.getPagination(page, size);
+    await validateReply.validateReply(req.body, validationRule, res, next)
 
-    try {
-        const { rows, count } = await role.findAndCountAll({
-            limit,
-            offset,
-            order: [
-                ['createdAt', order]
-            ],
-        });
 
-        const response = paginate.getPagingData({ rows, count }, page, limit, count);
-
-        res.send(response);
-    } catch (err) {
-        console.error(err);
-        res.status(500).send({
-            message: 'An error occurred while retrieving data.',
-        });
-    }
 }
+const categoryValidate = async(req, res, next) => {
+    const validationRule = {
+        "name": "required|string"
+    };
 
-self.get = async(req, res) => {
-    try {
-        let id = req.params.id;
-        let data = await role.findOne({
-            where: {
-                id: id
-            }
-        });
-        return res.status(200).json({
-            data: (data) ? data : {}
-        })
-    } catch (error) {
-        res.status(500).json({
-            message: error.message
+    await validateReply.validateReply(req.body, validationRule, res, next)
+
+
+}
+const productValidate = async(req, res, next) => {
+    const validationRule = {
+        "name": "required|string",
+        "category_id": "required|string",
+        "brand_id": "required|string",
+        "user_id": "required|string",
+        "price": "required|string"
+    };
+
+    await validateReply.validateReply(req.body, validationRule, res, next)
+
+
+}
+const productImageValidate = async(req, res, next) => {
+    if(!req.files){
+        return res.status(412).json({
+            message:"No files selected"
         })
     }
+    const validationRule = {
+        "item_id": "required|string"
+    };
+
+    await validateReply.validateReply(req.body, validationRule, res, next)
+
+
 }
-
-
-self.search = async(req, res) => {
-    try {
-        let text = req.query.text;
-        let data = await role.findAll({
-            where: {
-                name: {
-                    [Op.like]: "%" + text + "%"
-                }
-            }
-        });
-        return res.json(data)
-    } catch (error) {
-        res.status(500).json({
-            message: error.message
-        })
-    }
-}
-
-self.save = async(req, res) => {
-    try {
-        let body = req.body;
-        if (usr) {
-            let data = await role.create(body);
-            return res.json(data)
-        }
-    } catch (error) {
-        res.status(500).json({
-            message: error.message
-        })
-    }
-}
-
-self.update = async(req, res) => {
-    try {
-        let id = req.params.id;
-        let body = req.body;
-        let data = await role.update(body, {
-            where: {
-                id: id
-            }
-        });
-        return res.status(200).json({
-            message: "Success"
-        })
-    } catch (error) {
-        res.status(500).json({
-            message: error.message
-        })
-    }
-}
-
-self.delete = async(req, res) => {
-    try {
-        let id = req.params.id;
-        let data = await role.destroy({
-            where: {
-                id: id
-            }
-        });
-        return res.json(data)
-    } catch (error) {
-        res.status(500).json({
-            message: error.message
-        })
-    }
-}
-
-
-module.exports = self;
+module.exports = {
+    brandValidate,
+    categoryValidate,
+    productValidate,
+    productImageValidate
+};
