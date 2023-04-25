@@ -1,16 +1,15 @@
-const BrandController = require("../../../controllers/product");
-const Category = require("../../../controllers/auth/");
-const logoutController = require("../../../controllers/Auth/LogoutController");
-//const UserController = require("../../../controllers/department/userController.js");
+const brandController = require("../../../controllers/product/BrandController");
+const categoryController = require("../../../controllers/product/CategoryController");
+const productController = require("../../../controllers/product/ProductController");
+const productImageController = require("../../../controllers/product/ProductImageController.js");
 const validateData = require("../../../middleware/validate/module/auth/validate");
 module.exports = function (express) {
   const route = express.Router();
 
-  route.post("/login", validateData.loginValidate, authController.loginUser);
-  route.get("/refresh/token", refreshController.refreshToken);
-  route.post("/logout", logoutController.logout);
-
-  // route.post("/request-password-reset", UserController.requestPasswordReset);
-  // route.post("/password-reset", UserController.resetPassword);
+  route.post("/brand", validateData.loginValidate, brandController.save);
+  route.get("/brand/:id", brandController.get);
+  route.get("/brand", brandController.getAll);
+  route.update("/brand/:id", brandController.update);
+  route.delete("/brand/:id", brandController.delete);
   return route;
 };
