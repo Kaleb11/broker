@@ -114,6 +114,25 @@ const plan = async(req, res, next) => {
 
     await validateReply.validateReply(req.body, validationRule, res, next)
 }
+const photo = async(req, res, next) => {
+    let param = await validateReply.checkParam(req, res, next)
+    if (param == "failed") {
+        return res.status(400).json({
+            message: "Invalid id"
+        })
+    }
+    if(!req.files){
+        return res.status(412).json({
+            message:"No files selected"
+        })
+    }
+    const validationRule = {
+        "start_date": "required|date",
+        "expiration_date": "required|date"
+    };
+
+    await validateReply.validateReply(req.body, validationRule, res, next)
+}
 module.exports = {
     user,
     address,
@@ -122,5 +141,6 @@ module.exports = {
     role,
     permission,
     rolepermission,
-    plan
+    plan,
+    photo
 };
