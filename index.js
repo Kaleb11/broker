@@ -1,8 +1,8 @@
 const express = require("express");
 
-const productRoute = require("./routes/module/product/route");
-const userRoute = require("./routes/module/user/route");
-const authRoute = require("./routes/module/auth/route");
+const productRoute = require("./routes/modules/product/route");
+const userRoute = require("./routes/modules/user/route");
+const authRoute = require("./routes/modules/auth/route");
 
 const cors = require("cors");
 const cookieParser = require("cookie-parser");
