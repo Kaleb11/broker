@@ -1,15 +1,23 @@
-const validateReply = require('../../../../utils/validateerror');
+const validateReply = require("../../../../utils/validateerror");
 
-const loginValidate = async(req, res, next) => {
-    const validationRule = {
-        "email": "required|email",
-        "password": "required|string|min:6"
-    };
+const signupValidate = async (req, res, next) => {
+  const validationRule = {
+    email: "required|email",
+    password: "required|string|min:6",
+    role_id: "required|string",
+  };
 
-    await validateReply.validateReply(req.body, validationRule, res, next)
+  await validateReply.validateReply(req.body, validationRule, res, next);
+};
+const loginValidate = async (req, res, next) => {
+  const validationRule = {
+    email: "required|email",
+    password: "required|string|min:6",
+  };
 
-
-}
+  await validateReply.validateReply(req.body, validationRule, res, next);
+};
 module.exports = {
-    loginValidate
+  signupValidate,
+  loginValidate,
 };

@@ -1,12 +1,11 @@
 {
     "development": {
         "username": "kalebt",
-        "password": "b255711c",
+        "password": "pgpassKal",
         "database": "etcdp_database",
         "host": "db4free.net",
         "port": "3306",
         "dialect": "mysql",
-        "logging": true,
         "dialectOptions": {
             "ssl": false
         }

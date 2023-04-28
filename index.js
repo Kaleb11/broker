@@ -24,11 +24,11 @@ app.use("/public", express.static("public"));
 app.set("view engine", "ejs");
 
 //app.use("/api", userRoute(express), polymorphicRoute(express), authRoute(express), stakeCategory(express), productRoute(express));
-app.use("/api/user", userRoute(express));
+app.use("/api/users", userRoute(express));
 app.use("/api/accounts", authRoute(express));
 app.use("/api/products", productRoute(express));
 
-app.use("/", route_view(express));
+//app.use("/", route_view(express));
 
 app.listen(8080, () => {
   console.log("Success running on  8080");
