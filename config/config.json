@@ -30,7 +30,7 @@
         "host": "db4free.net",
         "port": "3306",
         "dialect": "mysql",
-        "dialectModule": "mysql2",
+      
         "dialectOptions": {
             "ssl": false
         }
