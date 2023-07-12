@@ -30,7 +30,7 @@ self.getAll = async(req, res) => {
     } catch (err) {
         console.error(err);
         res.status(500).send({
-            message: 'An error occurred while retrieving data.',
+            message: err.message,
         });
     }
 }

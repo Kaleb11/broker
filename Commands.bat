@@ -6,3 +6,5 @@ Postgres cluster quiet-sun-7971-db created
   Proxy port:  5432
   Postgres port:  5433
   Connection string: postgres://postgres:EqszoxkMeD6OHb8@quiet-sun-7971-db.flycast:5432
+
+npx sequelize-cli db:migrate
