@@ -29,7 +29,9 @@ app.use("/api/accounts", authRoute(express));
 app.use("/api/products", productRoute(express));
 
 //app.use("/", route_view(express));
-
+app.get('/', (req, res) => {
+  res.send('Hi');
+});
 app.listen(8002, () => {
   console.log("Success running on  8002");
 });
