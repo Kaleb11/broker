@@ -11,7 +11,7 @@ self.getAll = async (req, res) => {
     size = process.env.size,
     order = process.env.order,
   } = req.query;
-
+  
   const { limit, offset } = paginate.getPagination(page, size);
 
   try {

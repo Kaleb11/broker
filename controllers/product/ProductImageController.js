@@ -1,7 +1,9 @@
 const { itemimage, Sequelize } = require("../../models");
 const Op = Sequelize.Op;
 const paginate = require("../../utils/pagination");
+const path = require("path");
 const dotenv = require("dotenv");
+const fs = require("fs");
 dotenv.config();
 let self = {};
 

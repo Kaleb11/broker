@@ -30,8 +30,8 @@ app.use("/api/products", productRoute(express));
 
 //app.use("/", route_view(express));
 
-app.listen(8080, () => {
-  console.log("Success running on  8080");
+app.listen(8002, () => {
+  console.log("Success running on  8002");
 });
 
 module.exports = app;

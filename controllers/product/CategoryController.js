@@ -5,6 +5,8 @@ const {
 const Op = Sequelize.Op;
 const paginate = require("../../utils/pagination");
 const dotenv = require('dotenv');
+const path = require("path");
+const fs = require("fs");
 dotenv.config();
 let self = {};
 
@@ -73,11 +75,46 @@ self.search = async(req, res) => {
 self.save = async(req, res) => {
     try {
         let body = req.body;
-        if (usr) {
-            let data = await category.create(body);
-            return res.json(data)
+        const reqimage = req.files.image;
+    
+        if (!reqimage) {
+          return res.status(401).send({ message: "file is empty" });
         }
+        const ext = reqimage.mimetype.split("/")[1];
+        const rand = Math.floor(100000 + Math.random() * 900000);
+        let { name } = reqimage;
+        
+        name = name.replace(/\s+/g, "");
+     
+        const parsedName = path.parse(name).name;
+        const checkedNew = parsedName.concat(rand);
+        const filePath = path.join(
+          __dirname,
+          "../../public",
+          "images/categoryimages",
+          `${checkedNew}.${ext}`
+        );
+        const filePathh = filePath.split("public").pop();
+       
+      
+        const dat = { name:body.name,description:body.description, image: filePathh };
+        const file = reqimage;
+       
+        let data = await category.create(dat);
+        if (!data) {
+            return res.status(500).send({ message: "Failed to create data" });
+          }
+   
+          file.mv(filePath, (err) => {
+            if (err) {
+              return res.status(500).send(err);
+            }
+          });
+    return res.status(200).json({ data: data });
+     
+       
     } catch (error) {
+        console.log("The error is: ",error)
         res.status(500).json({
             message: error.message
         })

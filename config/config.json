@@ -1,5 +1,17 @@
 {
     "development": {
+        "username": "postgres",
+        "password": "pgpass",
+        "database": "broker_database",
+        "host": "localhost",
+        "port": "5432",
+        "dialect": "postgres",
+        "dialectOptions": {
+            "ssl": false
+        }
+    },
+    
+    "test": {
         "username": "kalebt",
         "password": "pgpassKal",
         "database": "etcdp_database",
@@ -10,18 +22,15 @@
             "ssl": false
         }
     },
-    "test": {
-        "username": "root",
-        "password": null,
-        "database": "database_test",
-        "host": "127.0.0.1",
-        "dialect": "mysql"
-    },
     "production": {
-        "username": "root",
-        "password": null,
-        "database": "database_production",
-        "host": "127.0.0.1",
-        "dialect": "mysql"
+        "username": "kalebt",
+        "password": "pgpassKal",
+        "database": "etcdp_database",
+        "host": "db4free.net",
+        "port": "3306",
+        "dialect": "mysql",
+        "dialectOptions": {
+            "ssl": false
+        }
     }
 }
