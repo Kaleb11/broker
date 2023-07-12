@@ -1,5 +1,5 @@
 "use strict";
-import mysql2 from 'mysql2'; 
+
 const fs = require("fs");
 const path = require("path");
 const Sequelize = require("sequelize");
@@ -15,7 +15,6 @@ if (config.use_env_variable) {
 } else {
   sequelize = new Sequelize(
     config.database,
-    {dialectModule: mysql2},
     config.username,
     config.password,
     config
